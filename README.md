@@ -13,18 +13,46 @@
 ### Usage
 
 ```python
-import Logger
+import time
+from Logger import Logger
 
-# [Your's imports]
+def test(log: Logger) -> None:
+    t = time.time()
+    log.core("Text")
+    log.info("Text")
+    log.warn("Text")
+    log.error("Text")
+    log.info(f"test ended, work time: {time.time() - t}")
 
 # Initialize logger 
-LOG = Logger("Module Name")
+Logger0 = Logger(
+        "Simple"
+    )
+
+Logger1 = Logger(
+        "Simple and file save",
+        file_save=True
+    )
+
+Logger2 = Logger(
+        "Simple, save and restyle",
+        file_save=True,
+        file_style="%state: %module %text",
+    )
+Logger3 = Logger(
+        module="All settings:",
+        file_save=True,
+        file_style="[%d.%m.%Y %H:%M.%S %state]: [%module] %text",
+        file_patch="./logs/%module/",
+        file_name="%module_%d",
+        file_ext=".log"
+    )
 
 # Use it!
-LOG.core("TEXT")
-LOG.info("TEXT")
-LOG.warn("TEXT")
-LOG.error("TEXT")
+test(Logger0)
+test(Logger1)
+test(Logger2)
+test(Logger3)
 ```
 
 ### Links!
